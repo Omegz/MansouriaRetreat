@@ -9,9 +9,12 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 
 const CheckoutModal = () => {
-  const { cartItems, cartTotal, closeCheckout, clearCart, openConfirmation } = useCart();
+  const { cartItems, cartTotal, closeCheckout, clearCart, openConfirmation, isCheckoutOpen } = useCart();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // If checkout is not open, don't render anything
+  if (!isCheckoutOpen) return null;
   
   const [formData, setFormData] = useState({
     name: "",

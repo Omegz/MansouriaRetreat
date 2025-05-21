@@ -3,7 +3,10 @@ import { useCart } from "../contexts/CartContext";
 import { Button } from "@/components/ui/button";
 
 const OrderConfirmationModal = () => {
-  const { closeConfirmation } = useCart();
+  const { closeConfirmation, isConfirmationOpen } = useCart();
+
+  // If confirmation is not open, don't render anything
+  if (!isConfirmationOpen) return null;
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
