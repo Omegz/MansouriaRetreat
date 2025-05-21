@@ -18,6 +18,7 @@ const CheckoutModal = () => {
   
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     phone: "",
     address: "",
     notes: ""
@@ -31,7 +32,7 @@ const CheckoutModal = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.phone || !formData.address) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.address) {
       toast({
         title: "Missing Information",
         description: "Please fill out all required fields.",
@@ -53,9 +54,10 @@ const CheckoutModal = () => {
         imageUrl: item.imageUrl
       }));
       
-      // Submit order to backend
+      // Submit order to backend (this will send email to admin)
       await apiRequest("POST", "/api/orders", {
         name: formData.name,
+        email: formData.email,
         phone: formData.phone,
         address: formData.address,
         notes: formData.notes,
@@ -149,7 +151,7 @@ const CheckoutModal = () => {
           <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
           
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 gap-6 mb-6">
               <div>
                 <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
                   Full Name <span className="text-red-500">*</span>
@@ -164,18 +166,35 @@ const CheckoutModal = () => {
                 />
               </div>
               
-              <div>
-                <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">
-                  Phone Number <span className="text-red-500">*</span>
-                </label>
-                <Input 
-                  id="phone" 
-                  name="phone" 
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+1 (555) 123-4567" 
-                  required
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <Input 
+                    id="email" 
+                    name="email" 
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com" 
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
+                  <Input 
+                    id="phone" 
+                    name="phone" 
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+1 (555) 123-4567" 
+                    required
+                  />
+                </div>
               </div>
             </div>
             

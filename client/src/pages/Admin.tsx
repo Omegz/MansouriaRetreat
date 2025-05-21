@@ -294,9 +294,10 @@ const Admin = () => {
                           <FormItem>
                             <FormLabel>Options (comma-separated)</FormLabel>
                             <FormControl>
-                              <Input placeholder="250g, 500g, 1kg" {...field} />
+                              <Input placeholder="5kg, 10kg, 15kg" {...field} />
                             </FormControl>
                             <FormMessage />
+                            <p className="text-xs text-gray-500">For quantities, use format like "5kg, 10kg, 15kg" or for size options use "Small, Medium, Large"</p>
                           </FormItem>
                         )}
                       />

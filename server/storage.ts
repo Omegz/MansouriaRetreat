@@ -192,16 +192,32 @@ export class MemStorage implements IStorage {
     this.orders.set(id, order);
     
     // Simulate sending an email to admin
-    console.log(`[Email to Admin] New order #${id} from ${order.name} (${order.phone})`);
-    console.log(`Items: ${JSON.stringify(order.items)}`);
-    console.log(`Total: $${(order.total / 100).toFixed(2)}`);
-    console.log(`Address: ${order.address}`);
-    if (order.notes) {
-      console.log(`Notes: ${order.notes}`);
+    console.log(`[Email to Admin] New order #${id} from ${order.name}`);
+    console.log(`Contact: Email - ${order.email} | Phone - ${order.phone}`);
+    console.log(`Items ordered:`);
+    
+    // Format order items in a more readable way
+    if (Array.isArray(order.items)) {
+      order.items.forEach((item: any) => {
+        console.log(`- ${item.name} (${item.option}) - Quantity: ${item.quantity} - Price: $${(item.price * item.quantity / 100).toFixed(2)}`);
+      });
+    } else {
+      console.log(`Items: ${JSON.stringify(order.items)}`);
     }
+    
+    console.log(`Total: $${(order.total / 100).toFixed(2)}`);
+    console.log(`Delivery Address: ${order.address}`);
+    if (order.notes) {
+      console.log(`Customer Notes: ${order.notes}`);
+    }
+    
+    // In a real implementation, this would send an actual email to the admin
+    // using a service like SendGrid, AWS SES, or another email provider
     
     return order;
   }
 }
 
-export const storage = new MemStorage();
+// Initialize database storage
+import { DatabaseStorage } from "./database";
+export const storage = new DatabaseStorage();
