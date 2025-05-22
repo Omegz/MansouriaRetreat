@@ -12,10 +12,6 @@ const CheckoutModal = () => {
   const { cartItems, cartTotal, closeCheckout, clearCart, openConfirmation, isCheckoutOpen } = useCart();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  // If checkout is not open, don't render anything
-  if (!isCheckoutOpen) return null;
-  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,6 +19,9 @@ const CheckoutModal = () => {
     address: "",
     notes: ""
   });
+  
+  // If checkout is not open, don't render anything
+  if (!isCheckoutOpen) return null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
