@@ -1,0 +1,24 @@
+# Development files
+dev.sh
+server/
+client/src/
+.env.local
+.env.development
+
+# Dependencies
+node_modules/
+bun.lockb
+
+# Build artifacts
+dist/api/
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
